@@ -22,7 +22,7 @@ public class UsersController : ControllerBase
         return data;
     }
 
-    [HttpGet("api/[controller]/email/{email}")]
+    [HttpGet("email/{email}")]
     public async Task<ActionResult<User>> GetByEmail(string email)
     {
         var data = await _service.GetByEmailAsync(email);

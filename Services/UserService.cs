@@ -23,6 +23,7 @@ public class UserService
 
     public async Task<List<User>> GetAsync() => await _collection.Find(_ => true).ToListAsync(); 
     public async Task<User?> GetAsync(string id) => await _collection.Find(x => x.Id == id).FirstOrDefaultAsync();
+    public async Task<User?> GetByEmailAsync(string email) => await _collection.Find(x => x.Email == email).FirstOrDefaultAsync();
     public async Task CreateAsync(User newValue) => await _collection.InsertOneAsync(newValue);
     public async Task UpdateAsync(string id, User updatedItem) => await _collection.ReplaceOneAsync(x => x.Id == id, updatedItem);
     public async Task RemoveAsync(string id) => await _collection.DeleteOneAsync(x => x.Id == id);

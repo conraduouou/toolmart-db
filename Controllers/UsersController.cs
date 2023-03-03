@@ -22,6 +22,14 @@ public class UsersController : ControllerBase
         return data;
     }
 
+    [HttpGet("{email}")]
+    public async Task<ActionResult<User>> GetByEmail(string email)
+    {
+        var data = await _service.GetByEmailAsync(email);
+        if (data is null) return NotFound();
+        return data;
+    }
+
     [HttpPost]
     public async Task<IActionResult> Post(User newData)
     {

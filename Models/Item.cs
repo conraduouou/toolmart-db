@@ -5,6 +5,10 @@ namespace ToolMart.Models;
 
 public class Item
 {
+    public Item(string? Name) {
+        this.Name = Name;
+    }
+
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
     public string? Id { get; set; }

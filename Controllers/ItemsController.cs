@@ -17,9 +17,11 @@ public class ItemsController : ControllerBase
     [HttpGet("{id:length(24)}")]
     public async Task<ActionResult<Item>> Get(string id)
     {
-        var item = await _itemsService.GetAsync(id);
-        if (item is null) return NotFound();
-        return item;
+        return new Item(Environment.GetEnvironmentVariable("MONGODB_URI"));
+
+        // var item = await _itemsService.GetAsync(id);
+        // if (item is null) return NotFound();
+        // return item;
     }
 
     [HttpPost]

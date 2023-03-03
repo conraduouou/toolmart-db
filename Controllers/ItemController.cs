@@ -2,20 +2,18 @@ using ToolMart.Models;
 using ToolMart.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ToolMart.Controllers;
-
 [ApiController]
 [Route("api/[controller]")]
-public class Controller<T> : ControllerBase where T : Model
+public class ItemsController : ControllerBase
 {
-    private readonly Service<T> _service;
-    public Controller(Service<T> service) => _service = service;
+    private readonly ItemService _service;
+    public ItemsController(ItemService service) => _service = service;
 
     [HttpGet]
-    public async Task<List<T>> Get() => await _service.GetAsync();
+    public async Task<List<Item>> Get() => await _service.GetAsync();
 
     [HttpGet("{id:length(24)}")]
-    public async Task<ActionResult<T>> Get(string id)
+    public async Task<ActionResult<Item>> Get(string id)
     {
         var data = await _service.GetAsync(id);
         if (data is null) return NotFound();
@@ -23,14 +21,14 @@ public class Controller<T> : ControllerBase where T : Model
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(T newData)
+    public async Task<IActionResult> Post(Item newData)
     {
         await _service.CreateAsync(newData);
         return CreatedAtAction(nameof(Get), new { id = newData.Id }, newData);
     }
 
     [HttpPut("{id:length(24)}")]
-    public async Task<IActionResult> Update(string id, T updatedData)
+    public async Task<IActionResult> Update(string id, Item updatedData)
     {
         var data = await _service.GetAsync(id);
         if (data is null) return NotFound();
@@ -47,18 +45,4 @@ public class Controller<T> : ControllerBase where T : Model
         await _service.RemoveAsync(id);
         return NoContent();
     }
-}
-
-[ApiController]
-[Route("api/[controller]")]
-public class UsersController : Controller<User>
-{
-    public UsersController(Service<User> service) : base(service) { }
-}
-
-[ApiController]
-[Route("api/[controller]")]
-public class TransactionsController : Controller<Transaction>
-{
-    public TransactionsController(Service<Transaction> service) : base(service) { }
 }

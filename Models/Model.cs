@@ -3,7 +3,8 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace ToolMart.Models;
 
-public class Model
+/// A utility class that supplies an Id for deriving classes.
+public abstract class Model
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]

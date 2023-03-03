@@ -63,3 +63,10 @@ public class UsersController : Controller<User>
 {
     public UsersController(Service<User> service) : base(service) { }
 }
+
+[ApiController]
+[Route("api/[controller]")]
+public class TransactionsController : Controller<Transaction>
+{
+    public TransactionsController(Service<Transaction> service) : base(service) { }
+}

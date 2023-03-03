@@ -21,7 +21,7 @@ builder.Services.Configure<CollectionSettings>(builder.Configuration.GetSection(
 builder.Services.AddSingleton<ReviewService>();
 builder.Services.Configure<CollectionSettings>(builder.Configuration.GetSection("TransactionItemsCollection"));
 builder.Services.AddSingleton<TransactionItemService>();
-builder.Services.Configure<CollectionSettings>(builder.Configuration.GetSection("CartItemsCollection"));
+builder.Services.Configure<CartItemsCollectionSettings>(builder.Configuration.GetSection("CartItemsCollection"));
 builder.Services.AddSingleton<CartItemService>();
 
 /*

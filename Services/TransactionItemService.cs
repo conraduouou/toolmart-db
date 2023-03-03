@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Options;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using ToolMart.Models;
 
@@ -29,7 +28,7 @@ public class TransactionItemService
             x => x.ItemId == itemId && x.TransactionId == transactionId && x.Id == id)
             .FirstOrDefaultAsync();
     public async Task CreateAsync(TransactionItem newItem) => await _collection.InsertOneAsync(newItem);
-    public async Task<UpdateResult> UpdateQuantityAsync(string transactionId, string itemId, string id, int quantity)
+    public async Task UpdateQuantityAsync(string transactionId, string itemId, string id, int quantity)
         => await _collection.UpdateOneAsync(
             x => x.TransactionId == transactionId && x.ItemId == itemId && x.Id == id,
                 Builders<TransactionItem>.Update.Set("ItemQuantity", quantity));

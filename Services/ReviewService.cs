@@ -5,11 +5,11 @@ using ToolMart.Models;
 
 namespace ToolMart.Services;
 
-public class ReviewServices
+public class ReviewService
 {
     private readonly IMongoCollection<Review> _collection;
 
-    public ReviewServices(IOptions<CollectionSettings> databaseSettings)
+    public ReviewService(IOptions<CollectionSettings> databaseSettings)
     {
         var connectionString = Environment.GetEnvironmentVariable("MONGODB_URI");
         var localString = databaseSettings.Value.ConnectionString;
@@ -24,10 +24,10 @@ public class ReviewServices
 
     public async Task<List<Review>> GetAsync(string itemId) 
         => await _collection.Find(x => x.ItemId == itemId).ToListAsync();
-    public async Task<List<Review>> GetAsync(string userId, string itemId, string id) 
+    public async Task<Review> GetAsync(string userId, string itemId, string id) 
         => await _collection.Find(
             x => x.ItemId == itemId && x.UserId == userId && x.Id == id)
-            .ToListAsync();
+            .FirstOrDefaultAsync();
     public async Task CreateAsync(Review newReview) => await _collection.InsertOneAsync(newReview);
     public async Task<UpdateResult> UpdateCommentAsync(string userId, string itemId, string id, string comment)
         => await _collection.UpdateOneAsync(

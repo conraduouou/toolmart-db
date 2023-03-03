@@ -32,7 +32,7 @@ public class TransactionItemService
     public async Task<UpdateResult> UpdateQuantityAsync(string transactionId, string itemId, string id, int quantity)
         => await _collection.UpdateOneAsync(
             x => x.TransactionId == transactionId && x.ItemId == itemId && x.Id == id,
-                Builders<TransactionItem>.Update.Set("itemquantity", quantity));
+                Builders<TransactionItem>.Update.Set("ItemQuantity", quantity));
     public async Task RemoveAsync(string transactionId, string itemId, string id) 
         => await _collection.DeleteOneAsync(
             x => x.TransactionId == transactionId && x.ItemId == itemId && x.Id == id);

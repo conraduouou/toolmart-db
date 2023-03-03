@@ -32,7 +32,7 @@ public class ReviewService
     public async Task<UpdateResult> UpdateCommentAsync(string userId, string itemId, string id, string comment)
         => await _collection.UpdateOneAsync(
             x => x.UserId == userId && x.ItemId == itemId && x.Id == id,
-                Builders<Review>.Update.Set("comment", comment));
+                Builders<Review>.Update.Set("UserComment", comment));
     public async Task RemoveAsync(string userId, string itemId, string id) 
         => await _collection.DeleteOneAsync(
             x => x.UserId == userId && x.ItemId == itemId && x.Id == id);

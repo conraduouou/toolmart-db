@@ -6,7 +6,7 @@ namespace ToolMart.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ItemsController : Controller<Item>
+public class UsersController : Controller<User>
 {
-    public ItemsController(Service<Item> service) : base(service) { }
+    public UsersController(Service<User> service) : base(service) { }
 }

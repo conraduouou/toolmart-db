@@ -8,7 +8,7 @@ public class TransactionItemService
 {
     private readonly IMongoCollection<TransactionItem> _collection;
 
-    public TransactionItemService(IOptions<CollectionSettings> databaseSettings)
+    public TransactionItemService(IOptions<TransactionItemsCollectionSettings> databaseSettings)
     {
         var connectionString = Environment.GetEnvironmentVariable("MONGODB_URI");
         var localString = databaseSettings.Value.ConnectionString;
@@ -18,7 +18,7 @@ public class TransactionItemService
         var mongoClient = new MongoClient(databaseSettings.Value.ConnectionString);
         var mongoDatabase = mongoClient.GetDatabase(databaseSettings.Value.DatabaseName);
 
-        _collection = mongoDatabase.GetCollection<TransactionItem>(databaseSettings.Value.CollectionName);
+        _collection = mongoDatabase.GetCollection<TransactionItem>(databaseSettings.Value.TransactionItemsCollectionName);
     }
 
     public async Task<List<TransactionItem>> GetAsync(string transactionId) 

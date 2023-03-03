@@ -6,10 +6,10 @@ namespace ToolMart.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class CartItemController : ControllerBase
+public class CartItemsController : ControllerBase
 {
     private readonly CartItemService _service;
-    public CartItemController(CartItemService service) => _service = service;
+    public CartItemsController(CartItemService service) => _service = service;
 
     [HttpGet("{userId:length(24)}")]
     public async Task<List<CartItem>> Get(string userId) => await _service.GetAsync(userId);

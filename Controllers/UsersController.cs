@@ -6,16 +6,16 @@ namespace ToolMart.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class TransactionController : ControllerBase 
+public class UsersController : ControllerBase
 {
-    private readonly TransactionService _service;
-    public TransactionController(TransactionService service) => _service = service;
+    private readonly UserService _service;
+    public UsersController(UserService service) => _service = service;
 
     [HttpGet]
-    public async Task<List<Transaction>> Get() => await _service.GetAsync();
+    public async Task<List<User>> Get() => await _service.GetAsync();
 
     [HttpGet("{id:length(24)}")]
-    public async Task<ActionResult<Transaction>> Get(string id)
+    public async Task<ActionResult<User>> Get(string id)
     {
         var data = await _service.GetAsync(id);
         if (data is null) return NotFound();
@@ -23,14 +23,14 @@ public class TransactionController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(Transaction newData)
+    public async Task<IActionResult> Post(User newData)
     {
         await _service.CreateAsync(newData);
         return CreatedAtAction(nameof(Get), new { id = newData.Id }, newData);
     }
 
     [HttpPut("{id:length(24)}")]
-    public async Task<IActionResult> Update(string id, Transaction updatedData)
+    public async Task<IActionResult> Update(string id, User updatedData)
     {
         var data = await _service.GetAsync(id);
         if (data is null) return NotFound();

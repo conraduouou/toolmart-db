@@ -8,7 +8,7 @@ public class CartItemService
 {
     private readonly IMongoCollection<CartItem> _collection;
 
-    public CartItemService(IOptions<CollectionSettings> databaseSettings)
+    public CartItemService(IOptions<CartItemsCollectionSettings> databaseSettings)
     {
         var connectionString = Environment.GetEnvironmentVariable("MONGODB_URI");
         var localString = databaseSettings.Value.ConnectionString;
@@ -18,7 +18,7 @@ public class CartItemService
         var mongoClient = new MongoClient(databaseSettings.Value.ConnectionString);
         var mongoDatabase = mongoClient.GetDatabase(databaseSettings.Value.DatabaseName);
 
-        _collection = mongoDatabase.GetCollection<CartItem>(databaseSettings.Value.CollectionName);
+        _collection = mongoDatabase.GetCollection<CartItem>(databaseSettings.Value.CartItemsCollectionName);
     }
 
     public async Task<List<CartItem>> GetAsync(string userId) => await _collection.Find(x => x.UserId == userId).ToListAsync();

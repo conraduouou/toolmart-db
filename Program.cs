@@ -13,8 +13,8 @@ builder.Services.AddSwaggerGen();
 // Different collections integration...
 builder.Services.Configure<ItemsCollectionSettings>(builder.Configuration.GetSection("ItemsCollection"));
 builder.Services.AddSingleton<ItemService>();
-builder.Services.Configure<CollectionSettings>(builder.Configuration.GetSection("UsersCollection"));
-builder.Services.AddSingleton<Service<User>>();
+builder.Services.Configure<UsersCollectionSettings>(builder.Configuration.GetSection("UsersCollection"));
+builder.Services.AddSingleton<UserService>();
 builder.Services.Configure<TransactionsCollectionSettings>(builder.Configuration.GetSection("TransactionsCollection"));
 builder.Services.AddSingleton<TransactionService>();
 builder.Services.Configure<ReviewsCollectionSettings>(builder.Configuration.GetSection("ReviewsCollection"));

@@ -9,7 +9,7 @@ public class ReviewService
 {
     private readonly IMongoCollection<Review> _collection;
 
-    public ReviewService(IOptions<CollectionSettings> databaseSettings)
+    public ReviewService(IOptions<ReviewsCollectionSettings> databaseSettings)
     {
         var connectionString = Environment.GetEnvironmentVariable("MONGODB_URI");
         var localString = databaseSettings.Value.ConnectionString;
@@ -19,7 +19,7 @@ public class ReviewService
         var mongoClient = new MongoClient(databaseSettings.Value.ConnectionString);
         var mongoDatabase = mongoClient.GetDatabase(databaseSettings.Value.DatabaseName);
 
-        _collection = mongoDatabase.GetCollection<Review>(databaseSettings.Value.CollectionName);
+        _collection = mongoDatabase.GetCollection<Review>(databaseSettings.Value.ReviewsCollectionName);
     }
 
     public async Task<List<Review>> GetAsync(string itemId) 

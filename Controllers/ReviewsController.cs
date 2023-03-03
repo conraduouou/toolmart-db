@@ -6,10 +6,10 @@ namespace ToolMart.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ReviewController : ControllerBase
+public class ReviewsController : ControllerBase
 {
     private readonly ReviewService _service;
-    public ReviewController(ReviewService service) => _service = service;
+    public ReviewsController(ReviewService service) => _service = service;
 
     [HttpGet("{itemId:length(24)}")]
     public async Task<List<Review>> Get(string itemId) => await _service.GetAsync(itemId);

@@ -6,16 +6,16 @@ namespace ToolMart.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class Controller<T> : ControllerBase where T : Model
+public class TransactionsController : ControllerBase 
 {
-    private readonly Service<T> _service;
-    public Controller(Service<T> service) => _service = service;
+    private readonly TransactionService _service;
+    public TransactionsController(TransactionService service) => _service = service;
 
     [HttpGet]
-    public async Task<List<T>> Get() => await _service.GetAsync();
+    public async Task<List<Transaction>> Get() => await _service.GetAsync();
 
     [HttpGet("{id:length(24)}")]
-    public async Task<ActionResult<T>> Get(string id)
+    public async Task<ActionResult<Transaction>> Get(string id)
     {
         var data = await _service.GetAsync(id);
         if (data is null) return NotFound();
@@ -23,14 +23,14 @@ public class Controller<T> : ControllerBase where T : Model
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(T newData)
+    public async Task<IActionResult> Post(Transaction newData)
     {
         await _service.CreateAsync(newData);
         return CreatedAtAction(nameof(Get), new { id = newData.Id }, newData);
     }
 
     [HttpPut("{id:length(24)}")]
-    public async Task<IActionResult> Update(string id, T updatedData)
+    public async Task<IActionResult> Update(string id, Transaction updatedData)
     {
         var data = await _service.GetAsync(id);
         if (data is null) return NotFound();
@@ -47,18 +47,4 @@ public class Controller<T> : ControllerBase where T : Model
         await _service.RemoveAsync(id);
         return NoContent();
     }
-}
-
-[ApiController]
-[Route("api/[controller]")]
-public class UsersController : Controller<User>
-{
-    public UsersController(Service<User> service) : base(service) { }
-}
-
-[ApiController]
-[Route("api/[controller]")]
-public class TransactionsController : Controller<Transaction>
-{
-    public TransactionsController(Service<Transaction> service) : base(service) { }
 }

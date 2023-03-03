@@ -11,9 +11,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Different collections integration...
-builder.Services.Configure<ItemsCollectionSettings>(builder.Configuration.GetSection("ItemsCollection"));
+builder.Services.Configure<CollectionSettings>(builder.Configuration.GetSection("ItemsCollection"));
 builder.Services.AddSingleton<Service<Item>>();
-builder.Services.Configure<UsersCollectionSettings>(builder.Configuration.GetSection("UsersCollection"));
+builder.Services.Configure<CollectionSettings>(builder.Configuration.GetSection("UsersCollection"));
 builder.Services.AddSingleton<Service<User>>();
 
 /*

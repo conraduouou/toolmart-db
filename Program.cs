@@ -19,7 +19,7 @@ builder.Services.Configure<TransactionsCollectionSettings>(builder.Configuration
 builder.Services.AddSingleton<TransactionService>();
 builder.Services.Configure<ReviewsCollectionSettings>(builder.Configuration.GetSection("ReviewsCollection"));
 builder.Services.AddSingleton<ReviewService>();
-builder.Services.Configure<CollectionSettings>(builder.Configuration.GetSection("TransactionItemsCollection"));
+builder.Services.Configure<TransactionItemsCollectionSettings>(builder.Configuration.GetSection("TransactionItemsCollection"));
 builder.Services.AddSingleton<TransactionItemService>();
 builder.Services.Configure<CartItemsCollectionSettings>(builder.Configuration.GetSection("CartItemsCollection"));
 builder.Services.AddSingleton<CartItemService>();

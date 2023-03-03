@@ -15,8 +15,8 @@ builder.Services.Configure<ItemsCollectionSettings>(builder.Configuration.GetSec
 builder.Services.AddSingleton<ItemService>();
 builder.Services.Configure<CollectionSettings>(builder.Configuration.GetSection("UsersCollection"));
 builder.Services.AddSingleton<Service<User>>();
-builder.Services.Configure<CollectionSettings>(builder.Configuration.GetSection("TransactionsCollection"));
-builder.Services.AddSingleton<Service<Transaction>>();
+builder.Services.Configure<TransactionsCollectionSettings>(builder.Configuration.GetSection("TransactionsCollection"));
+builder.Services.AddSingleton<TransactionService>();
 builder.Services.Configure<ReviewsCollectionSettings>(builder.Configuration.GetSection("ReviewsCollection"));
 builder.Services.AddSingleton<ReviewService>();
 builder.Services.Configure<CollectionSettings>(builder.Configuration.GetSection("TransactionItemsCollection"));

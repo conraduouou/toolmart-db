@@ -15,6 +15,8 @@ builder.Services.Configure<CollectionSettings>(builder.Configuration.GetSection(
 builder.Services.AddSingleton<Service<Item>>();
 builder.Services.Configure<CollectionSettings>(builder.Configuration.GetSection("UsersCollection"));
 builder.Services.AddSingleton<Service<User>>();
+builder.Services.Configure<CollectionSettings>(builder.Configuration.GetSection("TransactionsCollection"));
+builder.Services.AddSingleton<Service<Transaction>>();
 
 /*
 string basePath = Directory.GetCurrentDirectory();

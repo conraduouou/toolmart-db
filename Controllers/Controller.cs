@@ -48,3 +48,18 @@ public class Controller<T> : ControllerBase where T : Model
         return NoContent();
     }
 }
+
+[ApiController]
+[Route("api/[controller]")]
+public class ItemsController : Controller<Item>
+{
+    public ItemsController(Service<Item> service) : base(service) { }
+}
+
+
+[ApiController]
+[Route("api/[controller]")]
+public class UsersController : Controller<User>
+{
+    public UsersController(Service<User> service) : base(service) { }
+}

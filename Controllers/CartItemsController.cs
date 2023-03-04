@@ -66,7 +66,7 @@ public class CartItemsController : ControllerBase
     }
 
     [HttpDelete]
-    [Route("/api/[controller]/{id?}/{userId?}")]
+    [Route("/api/[controller]/one/{id?}/{userId?}")]
     public async Task<IActionResult> Delete(string id, string userId)
     {
         if (id is null) return BadRequest();
@@ -75,6 +75,14 @@ public class CartItemsController : ControllerBase
         var data = await _service.GetAsync(id, userId);
         if (data is null) return NotFound();
         await _service.RemoveAsync(id, userId);
+        return NoContent();
+    }
+
+    [HttpDelete]
+    [Route("/api/[controller]/{userId?}")]
+    public async Task<IActionResult> Delete(string userId) {
+        if (userId is null) return BadRequest();
+        await _service.RemoveManyAsync(userId);
         return NoContent();
     }
 }

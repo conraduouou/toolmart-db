@@ -39,4 +39,7 @@ public class CartItemService
     public async Task RemoveAsync(string id, string userId)
         => await _collection.DeleteOneAsync(
             x => x.Id == id && x.UserId == userId);
+
+    public async Task RemoveManyAsync(string userId) 
+        => await _collection.DeleteManyAsync(x => x.UserId == userId);
 }

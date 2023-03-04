@@ -18,7 +18,7 @@ public class CartItemsController : ControllerBase
     public async Task<IActionResult> Post(CartItem newItem)
     {
         await _service.CreateAsync(newItem);
-        return CreatedAtAction(nameof(Get), new { id = newItem.Id }, newItem);
+        return CreatedAtAction(nameof(Post), new { id = newItem.Id }, newItem);
     }
 
     [HttpPatch]

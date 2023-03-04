@@ -19,10 +19,10 @@ public class CartItemsController : ControllerBase
     {
         var data = await _service.GetAsync(newItem.UserId);
 
-        if (data is null)
+        if (data.Count == 0)
         {
             await _service.CreateAsync(newItem);
-            return CreatedAtAction(nameof(Post), new { id = newItem.Id }, newItem);
+            return CreatedAtAction(nameof(Post), new {id = newItem.Id}, newItem);
         }
 
         foreach (var item in data)
@@ -30,7 +30,7 @@ public class CartItemsController : ControllerBase
             if (item.ItemId == newItem.ItemId && item.ItemColor == newItem.ItemColor)
             {
                 await _service.UpdateQuantity(item.Id!, item.UserId, item.ItemQuantity + newItem.ItemQuantity);
-                return CreatedAtAction(nameof(Post), new { id = newItem.Id }, newItem);
+                return NoContent();
             }
         }
 

@@ -17,8 +17,24 @@ public class CartItemsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Post(CartItem newItem)
     {
-        await _service.CreateAsync(newItem);
-        return CreatedAtAction(nameof(Post), new { id = newItem.Id }, newItem);
+        var data = await _service.GetAsync(newItem.UserId);
+
+        if (data is null)
+        {
+            await _service.CreateAsync(newItem);
+            return CreatedAtAction(nameof(Post), newItem);
+        }
+
+        foreach (var item in data)
+        {
+            if (item.ItemId == newItem.ItemId && item.ItemColor == newItem.ItemColor)
+            {
+                await _service.UpdateQuantity(item.Id!, item.UserId, item.ItemQuantity + newItem.ItemQuantity);
+                return CreatedAtAction(nameof(Post), newItem);
+            }
+        }
+
+        return BadRequest();
     }
 
     [HttpPatch]
@@ -45,7 +61,7 @@ public class CartItemsController : ControllerBase
 
         var data = await _service.GetAsync(id, userId);
         if (data is null) return NotFound();
-        await _service.UpdateQuantity(id, userId, (int) quantity);
+        await _service.UpdateQuantity(id, userId, (int)quantity);
         return NoContent();
     }
 

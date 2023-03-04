@@ -38,7 +38,7 @@ public class CartItemsController : ControllerBase
     }
 
     [HttpPatch]
-    [Route("/api/[controller]/{id?}/{userId?}/{color}")]
+    [Route("/api/[controller]/color/{id?}/{userId?}/{color}")]
     public async Task<IActionResult> Patch(string id = null!, string userId = null!, string color = null!)
     {
         if (id is null) return BadRequest();
@@ -52,7 +52,7 @@ public class CartItemsController : ControllerBase
     }
 
     [HttpPatch]
-    [Route("/api/[controller]/{id?}/{userId?}/{quantity}")]
+    [Route("/api/[controller]/quantity/{id?}/{userId?}/{quantity}")]
     public async Task<IActionResult> Patch(string id = null!, string userId = null!, int? quantity = null!)
     {
         if (id is null) return BadRequest();

@@ -22,7 +22,7 @@ public class TransactionsController : ControllerBase
         return data;
     }
 
-    [HttpGet("{userId:length(24)/id:length(24)}")]
+    [HttpGet("{userId:length(24)}/{id:length(24)}")]
     public async Task<ActionResult<Transaction>> Get(string id, string userId)
     {
         var data = await _service.GetAsync(id, userId);

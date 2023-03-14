@@ -24,6 +24,12 @@ builder.Services.AddSingleton<TransactionItemService>();
 builder.Services.Configure<CartItemsCollectionSettings>(builder.Configuration.GetSection("CartItemsCollection"));
 builder.Services.AddSingleton<CartItemService>();
 
+builder.Services.AddMvc(
+    options => {
+        options.SuppressAsyncSuffixInActionNames = false;
+    }
+);
+
 /*
 string basePath = Directory.GetCurrentDirectory();
 

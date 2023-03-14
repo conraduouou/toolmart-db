@@ -12,7 +12,11 @@ public class TransactionItemsController : ControllerBase
     public TransactionItemsController(TransactionItemService service) => _service = service;
 
     [HttpGet("{itemId:length(24)}")]
-    public async Task<List<TransactionItem>> Get(string transactionId) => await _service.GetAsync(transactionId);
+    public async Task<ActionResult<List<TransactionItem>>> Get(string transactionId) {
+        var data = await _service.GetAsync(transactionId);
+        if (data is null) return NotFound();
+        return data;
+    } 
 
     [HttpPost]
     public async Task<IActionResult> Post(List<TransactionItem> newItems)

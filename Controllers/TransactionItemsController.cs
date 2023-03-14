@@ -12,11 +12,12 @@ public class TransactionItemsController : ControllerBase
     public TransactionItemsController(TransactionItemService service) => _service = service;
 
     [HttpGet("{itemId:length(24)}")]
-    public async Task<ActionResult<List<TransactionItem>>> Get(string transactionId) {
+    public async Task<ActionResult<List<TransactionItem>>> Get(string transactionId)
+    {
         var data = await _service.GetAsync(transactionId);
         if (data is null) return NotFound();
         return data;
-    } 
+    }
 
     [HttpPost]
     public async Task<IActionResult> Post(List<TransactionItem> newItems)
@@ -36,7 +37,7 @@ public class TransactionItemsController : ControllerBase
 
         var data = await _service.GetAsync(transactionId, itemId, id);
         if (data is null) return NotFound();
-        await _service.UpdateQuantityAsync(transactionId, itemId, id, (int) quantity);
+        await _service.UpdateQuantityAsync(transactionId, itemId, id, (int)quantity);
         return NoContent();
     }
 

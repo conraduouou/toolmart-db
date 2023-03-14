@@ -28,6 +28,8 @@ public class TransactionItemService
             x => x.ItemId == itemId && x.TransactionId == transactionId && x.Id == id)
             .FirstOrDefaultAsync();
     public async Task CreateAsync(TransactionItem newItem) => await _collection.InsertOneAsync(newItem);
+
+    public async Task CreateAsync(List<TransactionItem> newItems) => await _collection.InsertManyAsync(newItems);
     public async Task UpdateQuantityAsync(string transactionId, string itemId, string id, int quantity)
         => await _collection.UpdateOneAsync(
             x => x.TransactionId == transactionId && x.ItemId == itemId && x.Id == id,

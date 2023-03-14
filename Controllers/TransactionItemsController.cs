@@ -11,7 +11,7 @@ public class TransactionItemsController : ControllerBase
     private readonly TransactionItemService _service;
     public TransactionItemsController(TransactionItemService service) => _service = service;
 
-    [HttpGet("{itemId:length(24)}")]
+    [HttpGet("{transactionId:length(24)}")]
     public async Task<ActionResult<List<TransactionItem>>> Get(string transactionId)
     {
         var data = await _service.GetAsync(transactionId);

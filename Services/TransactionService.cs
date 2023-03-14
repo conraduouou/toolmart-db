@@ -22,7 +22,8 @@ public class TransactionService
     }
 
     public async Task<List<Transaction>> GetAsync() => await _collection.Find(_ => true).ToListAsync(); 
-    public async Task<Transaction?> GetAsync(string id) => await _collection.Find(x => x.Id == id).FirstOrDefaultAsync();
+    public async Task<List<Transaction>> GetAsync(string userId) => await _collection.Find(x => x.UserId == userId).ToListAsync(); 
+    public async Task<Transaction?> GetAsync(string id, string userId) => await _collection.Find(x => x.Id == id && x.UserId == userId).FirstOrDefaultAsync();
     public async Task CreateAsync(Transaction newValue) => await _collection.InsertOneAsync(newValue);
     public async Task UpdateAsync(string id, Transaction updatedItem) => await _collection.ReplaceOneAsync(x => x.Id == id, updatedItem);
     public async Task RemoveAsync(string id) => await _collection.DeleteOneAsync(x => x.Id == id);

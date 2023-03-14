@@ -18,7 +18,7 @@ public class TransactionItemsController : ControllerBase
     public async Task<IActionResult> Post(List<TransactionItem> newItems)
     {
         await _service.CreateAsync(newItems);
-        return CreatedAtAction(nameof(Get), new { transactionId = newItems[0].TransactionId }, newItems);
+        return CreatedAtAction(nameof(Get), new { transactionId = newItems[0].TransactionId });
     }
 
     [HttpPatch]

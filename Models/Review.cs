@@ -11,5 +11,5 @@ public class Review : Model
 
     public string? UserComment { get; set; }
 
-    public float UserRating { get; set; }
+    public int UserRating { get; set; }
 }

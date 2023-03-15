@@ -33,6 +33,10 @@ public class ReviewService
         => await _collection.UpdateOneAsync(
             x => x.UserId == userId && x.ItemId == itemId && x.Id == id,
                 Builders<Review>.Update.Set("UserComment", comment));
+    public async Task<UpdateResult> UpdateRatingAsync(string userId, string itemId, string id, int rating)
+        => await _collection.UpdateOneAsync(
+            x => x.UserId == userId && x.ItemId == itemId && x.Id == id,
+                Builders<Review>.Update.Set("UserRating", rating));
     public async Task RemoveAsync(string userId, string itemId, string id) 
         => await _collection.DeleteOneAsync(
             x => x.UserId == userId && x.ItemId == itemId && x.Id == id);

@@ -22,7 +22,7 @@ public class ReviewsController : ControllerBase
     }
 
     [HttpPatch]
-    [Route("/api/[controller]/{userId?}/{itemId?}/{id?}/{comment?}")]
+    [Route("/api/[controller]/comment/{userId?}/{itemId?}/{id?}/{comment?}")]
     public async Task<IActionResult> Patch(string userId = null!, string itemId = null!, string id = null!, string comment = null!)
     {
         if (userId is null) return BadRequest();
@@ -32,6 +32,20 @@ public class ReviewsController : ControllerBase
         var data = await _service.GetAsync(userId, itemId, id);
         if (data is null) return NotFound();
         await _service.UpdateCommentAsync(userId, itemId, id, comment);
+        return NoContent();
+    }
+
+    [HttpPatch]
+    [Route("/api/[controller]/rating/{userId?}/{itemId?}/{id?}/{rating?}")]
+    public async Task<IActionResult> Patch(string userId = null!, string itemId = null!, string id = null!, int rating = 0)
+    {
+        if (userId is null) return BadRequest();
+        if (itemId is null) return BadRequest();
+        if (id is null) return BadRequest();
+
+        var data = await _service.GetAsync(userId, itemId, id);
+        if (data is null) return NotFound();
+        await _service.UpdateRatingAsync(userId, itemId, id, rating);
         return NoContent();
     }
 

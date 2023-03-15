@@ -14,11 +14,17 @@ public class ReviewsController : ControllerBase
     [HttpGet("{itemId:length(24)}")]
     public async Task<List<Review>> Get(string itemId) => await _service.GetAsync(itemId);
 
+    [HttpGet]
+    [Route("/api/[controller]/comment/{userId:length(24)?}/{itemId:length(24)?}/{id:length(24)?}")]
+    public async Task<Review> Get(string userId, string itemId, string id) 
+        => await _service.GetAsync(userId, itemId, id);
+
     [HttpPost]
     public async Task<IActionResult> Post(Review newReview)
     {
         await _service.CreateAsync(newReview);
-        return CreatedAtAction(nameof(Get), new { id = newReview.Id }, newReview);
+        var routeValues = new { userId = newReview.UserId, itemId = newReview.ItemId, id = newReview.Id };
+        return CreatedAtAction(nameof(Get), routeValues, newReview);
     }
 
     [HttpPatch]
